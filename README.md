@@ -76,3 +76,21 @@ Al implementar las imágines básicas por fuera de la definición del lenguaje, 
 
 En esta segunda línea de la función se puede observar que *ls* se define a partir del constructor **pictures** que toma como argumento una lista con las primeras *n+1* líneas paralelas de largo *l* y con separación *s* creadas con la función *hlines*.
 
+## Punto Estrella: Fibonacci
+
+Para el punto estrella decidí realizar el gráfico de [Fibonacci](https://es.wikipedia.org/wiki/Sucesi%C3%B3n_de_Fibonacci). Para el cual necesito primero crear una figura básica, que sea una linea entre las dos esquinas opuestas, y luego, en `Basica/Fibonacci.hs` realizar la función iterativa que va ubicando la figura básica en los distintos lugares para formar una aproximación al siguiente gráfico:
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Fibonacci_spiral_34.svg/1920px-Fibonacci_spiral_34.svg.png) 
+
+Primero realizamos la figura básica `diag` que es una linea diagonal entre las 2 esquinas opuestas y le agregamos el recuadro que nos va a servir para visualizar en el gráfico de Fibonacci: 
+
+![](https://i.imgur.com/TH7W5fD.png)
+
+Para la función que crea la figura de Fibonacci, vamos a utilizar una función complementaria que nos va a ir calculando la sucesión de fibonacci para el número de iteraciónes. Esta sucesión la vamos a usar a la hora de Apilar, ya que vamos a usar F_n y F_n-1 como los valores de los anchos de las 2 figuras a pegar, y así ir aproximando a la proporción aurea (con el objetivo que cada recuadro se parezca lo más posible a un cuadrado)
+
+Con esta figura básica, obtenemos el siguiente gráfico de fibonacci para 30 iteraciones:
+![](https://i.imgur.com/8bOsMuS.png)
+
+Una vez con la función funcionando, vamos buscar generar un arco en la diagonal para imitar la figura de Fibonacci. Creando el arco y ajustandolo para que sea invariante a las diferentes transformaciones (rotaciones, apilar, etc), obtenemos lo siguiente:
+
+![](https://i.imgur.com/Vo7Z8iW.png)
