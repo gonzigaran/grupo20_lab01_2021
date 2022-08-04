@@ -1,6 +1,6 @@
 module Interp where
 import Graphics.Gloss
-    ( scale, rotate, translate, pictures, line, Picture, Vector )
+    ( scale, rotate, translate, pictures, line, arc, Picture, Vector )
 import Graphics.Gloss.Data.Vector ( argV, magV )
 import Graphics.Gloss.Geometry.Angle ( radToDeg )
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
@@ -40,6 +40,29 @@ trianD a b c = line $ map (a V.+) [c, half b , b V.+ c , c]
 
 rectan :: FloatingPic
 rectan a b c = line [a, a V.+ b, a V.+ b V.+ c, a V.+ c,a]
+
+diag :: FloatingPic
+diag a b c = line [a, a V.+ b V.+ c]
+
+diagBorder a b c = pictures [diag a b c, rectan a b c]
+
+circdiag :: FloatingPic
+circdiag a b c = translate x' y' .
+                 translate (fst a) (snd a) .
+                 scale (abs (x/y)) 1 $ 
+                 arc ang1 ang2 y 
+                where ang1 = radToDeg $ argV c
+                      ang2 = radToDeg $ argV (V.negate b)
+                      y = (snd (b V.+ c))
+                      x = (fst (b V.+ c))
+                      x' = case ((x>0) && (y>0)) || ((x<0) && (y<0)) of
+                                    True -> x
+                                    False -> 0
+                      y' = case ((x>0) && (y<0)) || ((x<0) && (y>0)) of
+                                    True -> y
+                                    False -> 0
+
+circdiagBorder a b c = pictures [circdiag a b c, rectan a b c]
 
 simple :: Picture -> FloatingPic
 simple p _ _ _ = p
